@@ -1,4 +1,5 @@
 #include "jadeitite.h"
+#include "jadeitite_ep.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);

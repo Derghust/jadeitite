@@ -16,10 +16,48 @@
 
 #define JADEITITE_VER_MAJOR 0
 #define JADEITITE_VER_MINOR 1
-#define JADEITITE_VER_PATCH 1
+#define JADEITITE_VER_PATCH 2
 
 // Framework version date YYYYMMDD
-#define JADEITITE_VER_DATE 20220607
+#define JADEITITE_VER_DATE 20220612
+
+//======================================
+//           Data types
+//======================================
+
+#define u8 unsigned char
+#define u16 unsigned short
+#define u32 unsigned int
+#define u64 unsigned long
+#define s8 char
+#define s16 short
+#define s32 int
+#define s64 long
+
+//======================================
+//           RNG & Noise
+//======================================
+
+/**
+ * Squirrel3
+ * Link: https://www.youtube.com/watch?v=LWFzPP8ZbdU
+ */
+static u32 squirrel3(u32 p_index, u32 p_seed) {
+  const u32 l_bit_noise_1 = 0x68E31DA4;
+  const u32 l_bit_noise_2 = 0xB5297A4D;
+  const u32 l_bit_noise_3 = 0x1B56C4E9;
+
+  u32 l_mangledBits = p_index;
+  l_mangledBits *= l_bit_noise_1;
+  l_mangledBits += p_seed;
+  l_mangledBits ^= (l_mangledBits >> 8);
+  l_mangledBits += l_bit_noise_2;
+  l_mangledBits ^= (l_mangledBits << 8);
+  l_mangledBits *= l_bit_noise_3;
+  l_mangledBits ^= (l_mangledBits >> 8);
+
+  return l_mangledBits;
+}
 
 //======================================
 //             Logging
@@ -34,7 +72,7 @@ typedef enum {
 } log_level;
 
 // src: https://stackoverflow.com/a/27678121
-void log_logTime(void) {
+static void log_logTime(void) {
   char fmt[64];
   char buf[64];
   struct timeval tv;
@@ -47,11 +85,11 @@ void log_logTime(void) {
   printf("[%s]", buf);
 }
 
-void log_logSrc(const char *p_file, int p_line) {
+static void log_logSrc(const char *p_file, int p_line) {
   printf("[ %s:%d ]", p_file, p_line);
 }
 
-void log_logLevel(log_level p_level) {
+static void log_logLevel(log_level p_level) {
   switch (p_level) {
   case LOG_LEVEL_INFO:printf("[INFO]: ");
     break;
@@ -68,7 +106,7 @@ void log_logLevel(log_level p_level) {
   }
 }
 
-void log_log(
+static void log_log(
   log_level p_level,
   const char *p_file,
   int p_line,
@@ -206,7 +244,7 @@ static const float s_jadeitite_pi = 3.14159f;
  * @param p_base Base number, e.g. 10, 16 (HEX), ...
  * @return
  */
-char *citoa(int p_number, int p_base) {
+static char *citoa(int p_number, int p_base) {
   if (p_number == 0) {
     return "0";
   } else {
@@ -289,7 +327,7 @@ static inline void render_fix_corner(void) {
 static winProp_t g_jadeitite_windowProperties;
 static uint8_t g_jadeitite_pixel_size = 1;
 
-void window_init(int p_argc, char *p_argv[]) {
+static void window_init(int p_argc, char *p_argv[]) {
   glutInit(&p_argc, p_argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize(
@@ -304,7 +342,7 @@ void window_init(int p_argc, char *p_argv[]) {
 }
 
 // FIXME: Window resizing is kinda buggy
-void window_resize(int p_width, int p_height) {
+static void window_resize(int p_width, int p_height) {
   g_jadeitite_windowProperties.width = p_width;
   g_jadeitite_windowProperties.height = p_height;
 
@@ -318,15 +356,15 @@ void window_resize(int p_width, int p_height) {
 //      OpenGl core rendering
 //======================================
 
-uint8_t renderer_get_pixelSize(void) {
+static inline uint8_t renderer_get_pixelSize(void) {
   return g_jadeitite_pixel_size;
 }
 
-void renderer_set_pixelSize(uint8_t p_value) {
+static inline void renderer_set_pixelSize(uint8_t p_value) {
   g_jadeitite_pixel_size = p_value;
 }
 
-void render_set_projection_2DOrthographic() {
+static void render_set_projection_2DOrthographic() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluOrtho2D(
@@ -348,7 +386,7 @@ void render_set_projection_2DOrthographic() {
  * @param p_zNear Set minimum render distance from view point.
  * @param p_zFar Set maximum render distance from view point.
  */
-void render_set_projection_3DPerspective(
+static void render_set_projection_3DPerspective(
   GLdouble p_width,
   GLdouble p_height,
   GLdouble p_fov,
@@ -687,53 +725,6 @@ static void draw_triangle_int(vec_3_s32 p_vertices[3]) {
   glVertex3i(p_vertices[1].x, p_vertices[1].y, p_vertices[1].z);
   glVertex3i(p_vertices[2].x, p_vertices[2].y, p_vertices[2].z);
   glEnd();
-}
-
-//======================================
-//           Entry point
-//======================================
-
-/**
- * Function for setting up callbacks and window properties for APP.
- *
- * @param p_callbacks Callbacks function
- * @param p_winProp Windows properties
- * @param p_argc Argument count
- * @param p_argv Argument list
- *
- * @return Return error code, 0 as PASSED, otherwise as FAILED
- *
- * @see t_callbacks
- */
-extern int setup(
-  callbacks_t *p_callbacks,
-  winProp_t *p_winProp,
-  int p_argc,
-  char *p_argv[]
-);
-
-int main(int argc, char *argv[]) {
-  LOG_INFO(
-    "Jadeitite framework - [%d.%d.%d - %d]",
-    JADEITITE_VER_MAJOR,
-    JADEITITE_VER_MINOR,
-    JADEITITE_VER_PATCH,
-    JADEITITE_VER_DATE
-  );
-
-  callbacks_t l_callbacks;
-
-  int l_setup = setup(&l_callbacks, &g_jadeitite_windowProperties, argc, argv);
-
-  if (l_setup) {
-    window_init(argc, argv);
-    l_callbacks.onAttach(argc, argv);
-    window_run(&l_callbacks, &g_jadeitite_windowProperties);
-    l_callbacks.onDetach(argc, argv);
-  }
-
-  LOG_INFO("Closing Jadeitite framework");
-  return 0;
 }
 
 #endif //JADEITITE_H
