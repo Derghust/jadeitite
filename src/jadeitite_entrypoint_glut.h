@@ -1,11 +1,9 @@
-#ifndef JADEITITE_EP_H
-#define JADEITITE_EP_H
+#ifndef JADEITITE_ENTRYPOINT_H
+#define JADEITITE_ENTRYPOINT_H
 
-#include "jadeitite.h"
-
-//======================================
-//           Entry point
-//======================================
+#include "jadeitite_glut.h"
+#include "jadeitite_log.h"
+#include "jadeitite_config.h"
 
 /**
  * Function for setting up callbacks and window properties for APP.
@@ -36,13 +34,14 @@ int main(int argc, char *argv[]) {
   );
 
   callbacks_t l_callbacks;
+  winProp_t l_windProp;
 
-  int l_setup = setup(&l_callbacks, &g_jadeitite_windowProperties, argc, argv);
+  int l_setup = setup(&l_callbacks, &l_windProp, argc, argv);
 
   if (l_setup) {
-    window_init(argc, argv);
+    window_init(argc, argv, l_windProp);
     l_callbacks.onAttach(argc, argv);
-    window_run(&l_callbacks, &g_jadeitite_windowProperties);
+    window_run(l_callbacks, l_windProp);
     l_callbacks.onDetach(argc, argv);
   }
 
@@ -50,4 +49,4 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-#endif //JADEITITE_EP_H
+#endif //JADEITITE_ENTRYPOINT_H

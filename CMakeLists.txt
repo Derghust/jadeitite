@@ -26,4 +26,4 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(GCC_LEVEL_MODE "-DLEVEL_RELEASE")
 endif ()
 
-add_subdirectory(src)
+add_subdirectory(examples)

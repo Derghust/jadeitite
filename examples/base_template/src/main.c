@@ -1,5 +1,6 @@
-#include "jadeitite.h"
-#include "jadeitite_ep.h"
+#include "jadeitite_entrypoint_glut.h"
+#include "jadeitite_gl.h"
+#include "jadeitite_log.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);
@@ -7,6 +8,8 @@ void onUpdate(void);
 void onKeyboardDown(unsigned char p_key, int p_x, int p_y);
 void onKeyboardUp(unsigned char p_key, int p_x, int p_y);
 void onResize(int p_width, int p_height);
+
+static winProp_t s_winProp = (winProp_t){480, 320, "BASE TEMPLATE", 0};
 
 int setup(callbacks_t *p_callbacks, winProp_t *p_winProp, int p_argc, char *p_argv[]) {
   p_callbacks->onAttach = onAttach;
@@ -16,16 +19,16 @@ int setup(callbacks_t *p_callbacks, winProp_t *p_winProp, int p_argc, char *p_ar
   p_callbacks->onUpdate = onUpdate;
   p_callbacks->onResize = onResize;
 
-  p_winProp->width = 480;
-  p_winProp->height = 320;
-  p_winProp->label = "BASE TEMPLATE";
-  p_winProp->autoRefresh = 0;
+  p_winProp->width = s_winProp.width;
+  p_winProp->height = s_winProp.height;
+  p_winProp->label = s_winProp.label;
+  p_winProp->autoRefresh = s_winProp.autoRefresh;
 
   return 1;
 }
 
 void onAttach(int p_argc, char **p_argv) {
-  render_set_projection_2DOrthographic();
+  render_set_projection_2DOrthographic(s_winProp.width, s_winProp.height);
   render_fix_corner();
   render_set_clear_color(0 ,0, 0);
 }

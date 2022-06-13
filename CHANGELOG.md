@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2022-06-13 - @damien.clement
+### Changed
+- Jadeitite header file was split into own header/c source file
+
 ## [0.1.2] - 2022-06-12 - @damien.clement
 ### Changed
 - Move entry point to own header file
