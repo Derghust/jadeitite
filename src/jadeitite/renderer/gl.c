@@ -1,7 +1,7 @@
-#include "jadeitite_gl.h"
+#include "gl.h"
 
 #include <math.h>
-#include "jadeitite_math.h"
+#include "jadeitite/math.h"
 
 //======================================
 //          OpenGl drawing
@@ -118,7 +118,7 @@ void draw_circle_int(
   glBegin(GL_LINE_LOOP);
   for (int i = 0; i < p_segments; i++) {
     //get the current angle
-    const float theta = (s_jadeitite_pi * (float) i) / (float) p_segments;
+    const float theta = (s_pi * (float) i) / (float) p_segments;
     const float x = p_radius * cosf(theta);//calculate the x component
     const float y = p_radius * sinf(theta);//calculate the y component
     const int posX = (int) x + p_beginX;
@@ -148,11 +148,11 @@ void draw_circle_filled_int(
   for (int i = 0; i <= p_segments; i++) {
     const int posX = p_beginX + (int) (
       p_radius * cosf((float) i *
-        s_jadeitite_pi / (float) p_segments
+        s_pi / (float) p_segments
       ));
     const int posY = p_beginY + (int) (
       p_radius * sinf((float) i *
-        s_jadeitite_pi / (float) p_segments
+        s_pi / (float) p_segments
       ));
     glVertex2i(posX, posY);
   }

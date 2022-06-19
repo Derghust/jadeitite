@@ -1,4 +1,4 @@
-#include "jadeitite_glut.h"
+#include "glut.h"
 
 //======================================
 //            Glut window

@@ -1,17 +1,35 @@
 # Jadeitite
 
-Jadeitite is framework for OpenGl written in C99, 
-contains utils and tools for developing application 
-for windows and UNIX like operating systems.
+Jadeitite is multifunctional and multiplatform for graphical and non-graphical application framework
+written in C99 for windows and UNIX like operating systems.
 
-## Source
+## Graphical
 
-* [Entry Point](src/jadeitite_entrypoint_glut.c)
-  * Needed for including main function without developer defining it
-  * Can be implemented by developer
-* [Core](src/jadeitite.h)
-  * All utils in one place 
+WIP
 
-## How to use it
+### OpenGL
+
+WIP
+
+#### Glut
+
+WIP
+
+##### Example
 
 - [base template](examples/base_template/src/main.c)
+
+### SDL2
+
+#### Compiling
+
+##### Debian/Ubuntu
+
+Install every library for sdl2 for development 
+
+```bash
+apt-get install libsdl2-dev libsdl2-*-dev
+```
+
+WIP
+

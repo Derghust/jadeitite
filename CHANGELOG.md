@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2022-06-19 - @damien.clement
+### Added
+- Memory management
+- Create static library
+- Create `return_status_e` for return status
+- New datatypes `byte`, `word` and `dword`
+### Changed
+- Move sources to own package `jadeitite` and others `renderer`, `entrypoint`
+- Remove jadeitite name from sources
+- Split `entrypoint_glut` to header file c file
+- Moved window structs to own header file
+
 ## [0.1.3] - 2022-06-13 - @damien.clement
 ### Changed
 - Jadeitite header file was split into own header/c source file

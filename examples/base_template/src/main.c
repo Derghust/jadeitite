@@ -1,6 +1,4 @@
-#include "jadeitite_entrypoint_glut.h"
-#include "jadeitite_gl.h"
-#include "jadeitite_log.h"
+#include "jadeitite/entrypoint/entrypoint_glut.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);
@@ -64,8 +62,8 @@ void onDetach(int p_argc, char **p_argv) {
 }
 
 void onResize(int p_width, int p_height){
-  if (p_width > 0 && p_height > 0) {
-    LOG_INFO("Resizing display [width=%d;height=%d]", p_width, p_height);
-    window_resize(p_width, p_height);
-  }
+//  if (p_width > 0 && p_height > 0) {
+//    LOG_INFO("Resizing display [width=%d;height=%d]", p_width, p_height);
+//    window_resize(p_width, p_height);
+//  }
 }

@@ -2,7 +2,7 @@
 #define JADEITITE_GL_H
 
 #include <GL/gl.h>
-#include "jadeitite_sys.h"
+#include "jadeitite/sys.h"
 
 //======================================
 //          OpenGl drawing

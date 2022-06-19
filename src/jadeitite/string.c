@@ -1,4 +1,4 @@
-#include "jadeitite_string.h"
+#include "string.h"
 
 /**
  * Convert integer with user defined base to String
