@@ -7,13 +7,15 @@ written in C99 for windows and UNIX like operating systems.
 
 WIP
 
-### OpenGL
+### OpenGL / Glut
 
-WIP
+#### Dependencies
 
-#### Glut
+**Debian/Ubuntu**
 
-WIP
+```bash
+apt-get install freeglut3-dev
+```
 
 ##### Example
 
@@ -21,9 +23,9 @@ WIP
 
 ### SDL2
 
-#### Compiling
+#### Dependencies
 
-##### Debian/Ubuntu
+**Debian/Ubuntu**
 
 Install every library for sdl2 for development 
 

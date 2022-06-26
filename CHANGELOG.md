@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2022-06-26 - @damien.clement
+### Fixed
+- Fix drawing only half circle to full drawn circle
+
 ## [0.2.0] - 2022-06-19 - @damien.clement
 ### Added
 - Memory management

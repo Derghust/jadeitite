@@ -7,7 +7,8 @@
 //     Static mathematical variables
 //======================================
 
-static const f32 s_pi = 3.14159f;
+static const f32 s_pi  = 3.14159f;
+static const f32 s_2pi = 6.28318f;
 
 //======================================
 //           RNG & Noise

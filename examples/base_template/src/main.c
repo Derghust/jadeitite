@@ -53,6 +53,10 @@ void onUpdate(void) {
   render_begin();
 
   // Render things here
+  render_color(255, 0, 0);
+  draw_point_fast_l1_int(5, 5);
+  draw_circle_filled_int(25, 25, 8, 8);
+  draw_circle_int(50, 50, 16, 32);
 
   render_end();
 }

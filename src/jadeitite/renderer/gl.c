@@ -110,19 +110,19 @@ void draw_rectangle_filled_int(
  * @param p_segments Circle segments
  */
 void draw_circle_int(
-  int p_beginX,
-  int p_beginY,
-  float p_radius,
-  int p_segments
+  s32 p_beginX,
+  s32 p_beginY,
+  f32 p_radius,
+  s32 p_segments
 ) {
   glBegin(GL_LINE_LOOP);
   for (int i = 0; i < p_segments; i++) {
     //get the current angle
-    const float theta = (s_pi * (float) i) / (float) p_segments;
-    const float x = p_radius * cosf(theta);//calculate the x component
-    const float y = p_radius * sinf(theta);//calculate the y component
-    const int posX = (int) x + p_beginX;
-    const int posY = (int) y + p_beginY;
+    const f32 theta = (s_2pi * (f32) i) / (f32) p_segments;
+    const f32 x = p_radius * cosf(theta);//calculate the x component
+    const f32 y = p_radius * sinf(theta);//calculate the y component
+    const s32 posX = (s32) x + p_beginX;
+    const s32 posY = (s32) y + p_beginY;
     glVertex2i(posX, posY);//output vertex
   }
   glEnd();
@@ -148,11 +148,11 @@ void draw_circle_filled_int(
   for (int i = 0; i <= p_segments; i++) {
     const int posX = p_beginX + (int) (
       p_radius * cosf((float) i *
-        s_pi / (float) p_segments
+        s_2pi / (float) p_segments
       ));
     const int posY = p_beginY + (int) (
       p_radius * sinf((float) i *
-        s_pi / (float) p_segments
+        s_2pi / (float) p_segments
       ));
     glVertex2i(posX, posY);
   }
