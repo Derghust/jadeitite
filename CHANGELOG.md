@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-06-28 - @damien.clement
+### Added
+- Added font8x8 from https://github.com/dhepper/font8x8
+- Added WIP SDL2 lib implementation
+- Added file read and write implementation
+### Changed
+- Change static lib name from `jadeitite` to `jadeitite_glut`
+- Add simple drawing for example
+- Change example name for `base_template` to `glut_template`
+### Fixed
+- Setup macro for system config for `TCC` compiler
+
 ## [0.2.1] - 2022-06-26 - @damien.clement
 ### Fixed
 - Fix drawing only half circle to full drawn circle
@@ -15,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Memory management
 - Create static library
 - Create `return_status_e` for return status
-- New datatypes `byte`, `word` and `dword`
+- New data types `byte`, `word` and `dword`
 ### Changed
 - Move sources to own package `jadeitite` and others `renderer`, `entrypoint`
 - Remove jadeitite name from sources

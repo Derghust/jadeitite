@@ -14,8 +14,8 @@ typedef unsigned int size_t;
 #endif
 
 // link: https://stackoverflow.com/questions/1505582/determining-32-vs-64-bit-in-c
-// Check GCC
-#if __GNUC__
+// Check GCC and TCC
+#if __GNUC__ || __TINYC__
 #if __x86_64__ || __ppc64__
 #define SYS64
 typedef unsigned long size_t;

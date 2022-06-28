@@ -1,1 +1,1 @@
-add_subdirectory(base_template)
+add_subdirectory(glut_template)

@@ -27,18 +27,31 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
 endif ()
 
 set(
-  JADEITITE_GLUT_C_FILES
-  src/jadeitite/entrypoint/entrypoint_glut.c src/jadeitite/renderer/gl.c
-  src/jadeitite/renderer/glut.c
+        JADEITITE_C_FILES
+        src/jadeitite/memory.c src/jadeitite/math.c src/jadeitite/string.c src/jadeitite/file.c
 )
+
+# Glut
 
 set(
-  JADEITITE_C_FILES
-  src/jadeitite/memory.c src/jadeitite/math.c src/jadeitite/string.c
+        JADEITITE_GLUT_C_FILES
+        src/jadeitite/entrypoint/glut.c src/jadeitite/renderer/gl.c
+        src/jadeitite/renderer/glut.c
 )
 
-add_library(jadeitite STATIC ${JADEITITE_GLUT_C_FILES} ${JADEITITE_C_FILES})
-target_include_directories(jadeitite PRIVATE src)
-target_link_libraries(jadeitite PRIVATE GL GLU glut m)
+add_library(jadeitite_glut STATIC ${JADEITITE_GLUT_C_FILES} ${JADEITITE_C_FILES})
+target_include_directories(jadeitite_glut PRIVATE src)
+target_link_libraries(jadeitite_glut PRIVATE GL GLU glut m)
+
+# SDL2
+
+set(
+        JADEITITE_SDL2_C_FILES
+        src/jadeitite/entrypoint/sdl2.c src/jadeitite/renderer/sdl2.c
+)
+
+add_library(jadeitite_sdl2 STATIC ${JADEITITE_SDL2_C_FILES} ${JADEITITE_C_FILES})
+target_include_directories(jadeitite_sdl2 PRIVATE src)
+target_link_libraries(jadeitite_sdl2 PRIVATE GL GLU glut m)
 
 add_subdirectory(examples)

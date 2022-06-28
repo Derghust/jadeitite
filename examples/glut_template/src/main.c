@@ -1,4 +1,5 @@
-#include "jadeitite/entrypoint/entrypoint_glut.h"
+#include "jadeitite/entrypoint/glut.h"
+#include "jadeitite/file.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);
@@ -29,6 +30,19 @@ void onAttach(int p_argc, char **p_argv) {
   render_set_projection_2DOrthographic(s_winProp.width, s_winProp.height);
   render_fix_corner();
   render_set_clear_color(0 ,0, 0);
+
+  // Example for writing data
+  typedef struct {
+    u8 num_a;
+    u8 num_b;
+  } test_data_t;
+  test_data_t l_test_data_1 = (test_data_t){16, 32};
+  file_write("test_data.dat", &l_test_data_1, sizeof(test_data_t));
+  test_data_t *read_data = (test_data_t *)file_read(
+    "test_data.dat",
+    sizeof(test_data_t));
+  LOG_INFO("Test Data 1 [%d; %d]", read_data->num_a, read_data->num_b);
+  free(read_data);
 }
 
 void onKeyboardDown(unsigned char p_key, int p_x, int p_y) {

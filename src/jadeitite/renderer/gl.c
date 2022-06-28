@@ -28,9 +28,9 @@ void draw_point_int(int p_posX, int p_posY) {
  *
  * @warning Be aware of pointers and count, there are no checking and can crash on overflow!
  */
-void draw_points_int(int *p_posX, int *p_posY, size_t p_count) {
+void draw_points_int(int *p_posX, int *p_posY, u32 p_count) {
   glBegin(GL_POINTS);
-  for (size_t i = 0; i < p_count; ++i) {
+  for (u32 i = 0; i < p_count; ++i) {
     glVertex2i(p_posX[i], p_posY[i]);
   }
   glEnd();

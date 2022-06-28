@@ -3,6 +3,14 @@
 Jadeitite is multifunctional and multiplatform for graphical and non-graphical application framework
 written in C99 for windows and UNIX like operating systems.
 
+Compatible with 64-bit and also 32-bit OS
+
+## Compiler support
+
+- GCC
+- TCC
+- CLang
+
 ## Graphical
 
 WIP
@@ -19,7 +27,7 @@ apt-get install freeglut3-dev
 
 ##### Example
 
-- [base template](examples/base_template/src/main.c)
+- [base template](examples/glut_template/src/main.c)
 
 ### SDL2
 

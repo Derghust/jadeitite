@@ -3,13 +3,14 @@
 
 #include <GL/gl.h>
 #include "jadeitite/sys.h"
+#include "jadeitite/datatypes.h"
 
 //======================================
 //          OpenGl drawing
 //======================================
 
 void draw_point_int(int p_posX, int p_posY);
-void draw_points_int(int *p_posX, int *p_posY, size_t p_count);
+void draw_points_int(int *p_posX, int *p_posY, u32 p_count);
 void draw_line_int(int p_beginX, int p_beginY, int p_endX, int p_endY);
 void draw_rectangle_int(int p_beginX, int p_beginY, int p_endX, int p_endY);
 void draw_rectangle_filled_int(int p_beginX, int p_beginY, int p_endX, int p_endY);
