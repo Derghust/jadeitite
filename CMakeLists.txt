@@ -37,6 +37,7 @@ set(
         JADEITITE_GLUT_C_FILES
         src/jadeitite/entrypoint/glut.c src/jadeitite/renderer/gl.c
         src/jadeitite/renderer/glut.c
+#        src/jadeitite/emulator/cpu/m6502.c
 )
 
 add_library(jadeitite_glut STATIC ${JADEITITE_GLUT_C_FILES} ${JADEITITE_C_FILES})
