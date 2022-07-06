@@ -57,7 +57,7 @@ typedef struct {
   u32 clockticks6502, clockgoal6502;
   u8 penalty_op, penalty_address;
   u64 instruction_counter;
-  void (*required_process_bus)(void);
+  void (*required_process_bus)(m6502_cpu_pins*);
 } m6502_cpu;
 
 /*============================================================================*/

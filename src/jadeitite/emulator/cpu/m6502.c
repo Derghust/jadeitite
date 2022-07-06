@@ -15,7 +15,7 @@ void m6502_put_address_to_bus(m6502_cpu *p_cpu, u16 p_data) {
 
 u8 m6502_bus_read_data(m6502_cpu *p_cpu, u16 p_address) {
   m6502_put_address_to_bus(p_cpu, p_address);
-  p_cpu->required_process_bus();
+  p_cpu->required_process_bus(p_cpu->pins);
   LOG_INFO(
     "M65c02 Reading [address=0x%04X; data=0x%02X]",
     p_cpu->pins->a,
@@ -30,7 +30,7 @@ void m6502_bus_put_data(m6502_cpu *p_cpu, u16 p_address, u8 p_value){
     "M65c02 Writing [address=0x%04X; data=0x%02X]",
     p_cpu->pins->a,
     p_cpu->pins->d);
-  p_cpu->required_process_bus();
+  p_cpu->required_process_bus(p_cpu->pins);
 }
 
 void m6502_bus_put_address(m6502_cpu *p_cpu, u16 p_address){
@@ -39,7 +39,7 @@ void m6502_bus_put_address(m6502_cpu *p_cpu, u16 p_address){
     "M65c02 Writing [address=0x%04X; data=0x%02X]",
     p_cpu->pins->a,
     p_cpu->pins->d);
-  p_cpu->required_process_bus();
+  p_cpu->required_process_bus(p_cpu->pins);
 }
 
 /*============================================================================*/
