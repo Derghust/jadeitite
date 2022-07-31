@@ -1,10 +1,17 @@
 #ifndef JADEITITE_ENTRYPOINT_H
 #define JADEITITE_ENTRYPOINT_H
 
-#include "jadeitite/renderer/gl.h"
-#include "jadeitite/renderer/glut.h"
 #include "jadeitite/log.h"
 #include "jadeitite/config.h"
+#include "jadeitite/renderer/window.h"
+#include "jadeitite/renderer/callbacks.h"
+
+#if defined(JADEITITE_RENDERER_GLUT)
+#include "jadeitite/renderer/gl.h"
+#include "jadeitite/renderer/glut.h"
+#elif defined(JADEITITE_RENDERER_SDL2)
+#include "jadeitite/renderer/sdl2.h"
+#endif
 
 /**
  * Function for setting up callbacks and window properties for APP.

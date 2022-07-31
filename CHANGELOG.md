@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2022-07-31 - @damien.clement
+### Added
+- Initialize SDL2 renderer
+### Changed
+- Rewrite entrypoint for multiple renderer
+
 ## [0.3.0] - 2022-06-28 - @damien.clement
 ### Added
 - Added font8x8 from https://github.com/dhepper/font8x8

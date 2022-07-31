@@ -1,1 +1,2 @@
 add_subdirectory(glut_template)
+add_subdirectory(sdl_template)

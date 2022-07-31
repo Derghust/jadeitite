@@ -27,9 +27,9 @@ int setup(callbacks_t *p_callbacks, winProp_t *p_winProp, int p_argc, char *p_ar
 }
 
 void onAttach(int p_argc, char **p_argv) {
-  render_set_projection_2DOrthographic(s_winProp.width, s_winProp.height);
-  render_fix_corner();
-  render_set_clear_color(0 ,0, 0);
+//  render_set_projection_2DOrthographic(s_winProp.width, s_winProp.height);
+//  render_fix_corner();
+//  render_set_clear_color(0 ,0, 0);
 
   // Example for writing data
   typedef struct {
@@ -64,15 +64,15 @@ void onKeyboardUp(unsigned char p_key, int p_x, int p_y) {
 }
 
 void onUpdate(void) {
-  render_begin();
-
-  // Render things here
-  render_color(255, 0, 0);
-  draw_point_fast_l1_int(5, 5);
-  draw_circle_filled_int(25, 25, 8, 8);
-  draw_circle_int(50, 50, 16, 32);
-
-  render_end();
+//  render_begin();
+//
+//  // Render things here
+//  render_color(255, 0, 0);
+//  draw_point_fast_l1_int(5, 5);
+//  draw_circle_filled_int(25, 25, 8, 8);
+//  draw_circle_int(50, 50, 16, 32);
+//
+//  render_end();
 }
 
 void onDetach(int p_argc, char **p_argv) {

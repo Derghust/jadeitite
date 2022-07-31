@@ -14,6 +14,7 @@ typedef struct {
   int height;
   const char *label;
   int autoRefresh;
+  unsigned char renderMultiplier;
 } winProp_t;
 
 #endif //JADEITITE_WINDOW_H

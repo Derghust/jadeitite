@@ -30,6 +30,12 @@ typedef u8 byte;
 typedef u16 word;
 typedef u32 dword;
 
+typedef u8 bool;
+#define TRUE 1;
+#define FALSE 0;
+#define true 1;
+#define false 0;
+
 //======================================
 //           Enumerators
 //======================================
@@ -139,5 +145,13 @@ typedef struct {
   f64 x, y, z;
 } vec_3_f64;
 #endif
+
+/*============================================================================*/
+/*                           Special functions                                */
+/*============================================================================*/
+
+static inline u8 get_bit(u32 l_data, u32 l_pos) {
+  return (l_data >> l_pos) & 1;
+}
 
 #endif //JADEITITE_DT_H

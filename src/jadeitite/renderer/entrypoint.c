@@ -1,4 +1,4 @@
-#include "glut.h"
+#include "entrypoint.h"
 
 int main(int argc, char *argv[]) {
   LOG_INFO(
