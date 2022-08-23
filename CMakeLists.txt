@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project(jadeitite_framework C)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_CPPCHECK "cppcheck")
 
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message("Debug mode is enabled")

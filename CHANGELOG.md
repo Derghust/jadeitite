@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2022-08-23 - @damien.clement
+### Added
+- Include `cppcheck` to cmake
+### Fixed
+- Freeing pointers before return `NULL` or error in `file.c` functions
+
 ## [0.3.2] - 2022-08-23 - @damien.clement
 ### Fixed
 - Rename `citoa` to `int_to_str` in header `string.h`

@@ -22,7 +22,7 @@ WIP
 **Debian/Ubuntu**
 
 ```bash
-apt-get install freeglut3-dev
+apt-get install freeglut3-dev cppcheck
 ```
 
 ##### Example
@@ -38,7 +38,7 @@ apt-get install freeglut3-dev
 Install every library for sdl2 for development 
 
 ```bash
-apt-get install libsdl2-dev libsdl2-*-dev
+apt-get install libsdl2-dev libsdl2-*-dev cppcheck
 ```
 
 WIP

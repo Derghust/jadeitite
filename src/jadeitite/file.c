@@ -27,6 +27,8 @@ u8 file_write(const char *p_file_path, void *p_data, size_t p_data_size) {
     LOG_ERROR(
       "Failed to write data to file [file_path=%s; data_size=%ul]",
       p_file_path, p_data_size);
+
+    fclose(l_file);
     return RS_FAILED;
   }
 
@@ -58,6 +60,9 @@ void *file_read(const char *p_file_path, size_t p_data_size) {
     LOG_ERROR(
       "Failed to read data from file [file_path=%s; data_size=%ul]",
       p_file_path, p_data_size);
+
+    fclose(l_file);
+    free(l_data);
     return NULL;
   }
 
