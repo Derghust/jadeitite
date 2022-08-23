@@ -2,8 +2,8 @@
 #define ALCHEMIST_JADEITITE_GLUT_H
 
 #include <GL/freeglut.h>
-#include "window.h"
-#include "callbacks.h"
+#include "jadeitite/renderer/window.h"
+#include "jadeitite/renderer/callbacks.h"
 
 //======================================
 //            Glut engine

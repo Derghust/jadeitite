@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2022-08-23 - @damien.clement
+### Fixed
+- Rename `citoa` to `int_to_str` in header `string.h`
+### Added
+- Added `vscode` project properties
+### Changed
+- Split `sdl` and `glut` from `renderer` root to each own subfolder with own
+entrypoint
+
 ## [0.3.1] - 2022-07-31 - @damien.clement
 ### Added
 - Initialize SDL2 renderer

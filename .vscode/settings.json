@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "entrypoint.h": "c",
+        "glut.h": "c",
+        "window.h": "c",
+        "callbacks.h": "c",
+        "sdl2.h": "c"
+    }
+}

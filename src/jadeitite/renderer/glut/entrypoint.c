@@ -1,4 +1,4 @@
-#include "entrypoint.h"
+#include "jadeitite/renderer/glut/entrypoint.h"
 
 int main(int argc, char *argv[]) {
   LOG_INFO(

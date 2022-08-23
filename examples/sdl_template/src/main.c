@@ -1,4 +1,4 @@
-#include "jadeitite/renderer/entrypoint.h"
+#include "jadeitite/renderer/sdl/entrypoint.h"
 #include "jadeitite/file.h"
 
 void onAttach(int p_argc, char **p_argv);
@@ -43,6 +43,8 @@ void onAttach(int p_argc, char **p_argv) {
     sizeof(test_data_t));
   LOG_INFO("Test Data 1 [%d; %d]", read_data->num_a, read_data->num_b);
   free(read_data);
+
+  onUpdate();
 }
 
 void onKeyboardDown(unsigned char p_key, int p_x, int p_y) {
@@ -64,15 +66,15 @@ void onKeyboardUp(unsigned char p_key, int p_x, int p_y) {
 }
 
 void onUpdate(void) {
-//  render_begin();
-//
-//  // Render things here
+ render_begin();
+
+ // Render things here
 //  render_color(255, 0, 0);
 //  draw_point_fast_l1_int(5, 5);
 //  draw_circle_filled_int(25, 25, 8, 8);
 //  draw_circle_int(50, 50, 16, 32);
-//
-//  render_end();
+
+ render_end();
 }
 
 void onDetach(int p_argc, char **p_argv) {

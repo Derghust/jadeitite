@@ -1,4 +1,4 @@
-#include "jadeitite/renderer/entrypoint.h"
+#include "jadeitite/renderer/glut/entrypoint.h"
 #include "jadeitite/file.h"
 
 void onAttach(int p_argc, char **p_argv);

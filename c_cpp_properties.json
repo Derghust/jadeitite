@@ -1,0 +1,12 @@
+{
+    "env": {
+      "myDefaultIncludePath": ["${workspaceFolder}/src"]
+    },
+    "configurations": [
+      {
+        "name": "Default",
+        "includePath": ["${myDefaultIncludePath}"]
+      }
+    ],
+    "version": 4
+}

@@ -35,8 +35,8 @@ set(
 
 set(
         JADEITITE_GLUT_C_FILES
-        src/jadeitite/renderer/entrypoint.c src/jadeitite/renderer/gl.c
-        src/jadeitite/renderer/glut.c
+        src/jadeitite/renderer/glut/entrypoint.c src/jadeitite/renderer/glut/gl.c
+        src/jadeitite/renderer/glut/glut.c
 #        src/jadeitite/emulator/cpu/m6502.c
 )
 
@@ -48,7 +48,7 @@ target_link_libraries(jadeitite_glut PRIVATE GL GLU glut m)
 
 set(
         JADEITITE_SDL2_C_FILES
-        src/jadeitite/renderer/entrypoint.c src/jadeitite/renderer/sdl2.c
+        src/jadeitite/renderer/sdl/entrypoint.c src/jadeitite/renderer/sdl/sdl2.c
 )
 
 add_library(jadeitite_sdl2 STATIC ${JADEITITE_SDL2_C_FILES} ${JADEITITE_C_FILES})
