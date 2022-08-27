@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.4] - 2022-08-27 - @damien.clement
+### Changed
+- Added a new jadeitite utils library from **JADEITITE_C_FILES** and later linked to other libraries
+### Removed
+- Moved emulator for MOS 6502 processor to its own [repository](https://git.hussite-software.com/Derghust/MOS6502)
+
 ## [0.3.3] - 2022-08-23 - @damien.clement
 ### Added
 - Include `cppcheck` to cmake

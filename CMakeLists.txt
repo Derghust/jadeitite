@@ -27,33 +27,44 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(GCC_LEVEL_MODE "-DLEVEL_RELEASE")
 endif ()
 
+#============================================================================#
+#                                Utils library                               #
+#============================================================================#
+
 set(
-        JADEITITE_C_FILES
-        src/jadeitite/memory.c src/jadeitite/math.c src/jadeitite/string.c src/jadeitite/file.c
+        JADEITITE_UTILS_C_FILES
+        src/jadeitite/file.c src/jadeitite/math.c src/jadeitite/memory.c
+        src/jadeitite/string.c
 )
 
-# Glut
+add_library(jadeitite_utils STATIC ${JADEITITE_UTILS_C_FILES})
+target_include_directories(jadeitite_utils PRIVATE src)
+
+#============================================================================#
+#                                 GUI - GLUT                                 #
+#============================================================================#
 
 set(
         JADEITITE_GLUT_C_FILES
         src/jadeitite/renderer/glut/entrypoint.c src/jadeitite/renderer/glut/gl.c
-        src/jadeitite/renderer/glut/glut.c
-#        src/jadeitite/emulator/cpu/m6502.c
+        src/jadeitite/renderer/glut/glut.c src/jadeitite/renderer/ui.c
 )
 
-add_library(jadeitite_glut STATIC ${JADEITITE_GLUT_C_FILES} ${JADEITITE_C_FILES})
+add_library(jadeitite_glut STATIC ${JADEITITE_GLUT_C_FILES})
 target_include_directories(jadeitite_glut PRIVATE src)
-target_link_libraries(jadeitite_glut PRIVATE GL GLU glut m)
+target_link_libraries(jadeitite_glut PRIVATE GL GLU glut m jadeitite_utils)
 
-# SDL2
+#============================================================================#
+#                                 GUI - SDL2                                 #
+#============================================================================#
 
 set(
         JADEITITE_SDL2_C_FILES
         src/jadeitite/renderer/sdl/entrypoint.c src/jadeitite/renderer/sdl/sdl2.c
 )
 
-add_library(jadeitite_sdl2 STATIC ${JADEITITE_SDL2_C_FILES} ${JADEITITE_C_FILES})
+add_library(jadeitite_sdl2 STATIC ${JADEITITE_SDL2_C_FILES})
 target_include_directories(jadeitite_sdl2 PRIVATE src)
-target_link_libraries(jadeitite_sdl2 PRIVATE GL GLU glut m SDL2)
+target_link_libraries(jadeitite_sdl2 PRIVATE GL GLU glut m SDL2 jadeitite_utils)
 
 add_subdirectory(examples)
