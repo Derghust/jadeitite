@@ -1,5 +1,4 @@
-#include "jadeitite/renderer/sdl/entrypoint.h"
-#include "jadeitite/file.h"
+#include "jadeitite.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);
