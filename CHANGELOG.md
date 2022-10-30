@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Removed OpenGl with GLUT support
   - Replaced with SDL2
+- VSCode setting and c_cpp_settings
 
 ## [0.3.4] - 2022-08-27 - @damien.clement
 ### Changed
