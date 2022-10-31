@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2022-10-29 - @damien.clement
+### Changed
+- Shrink all sources to single header `c` file
+### Removed
+- Removed OpenGl with GLUT support
+  - Replaced with SDL2
+- VSCode setting and c_cpp_settings
+
 ## [0.3.4] - 2022-08-27 - @damien.clement
 ### Changed
 - Added a new jadeitite utils library from **JADEITITE_C_FILES** and later linked to other libraries
