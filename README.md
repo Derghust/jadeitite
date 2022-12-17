@@ -11,35 +11,14 @@ Compatible with 64-bit and also 32-bit OS
 - TCC
 - CLang
 
-## Graphical
+## Compiling
 
-WIP
+For compiling jadeitite with examples can be used multiple method:
 
-### OpenGL / Glut
+- Install dependencies on your machine, e.g. SDL2 and then compile it with cmake.
+- Use conan package manager [Conan Docs](https://conan.io)
+  - Firstly run automation [conan.sh](conan.sh) which will setup conan for builds.
+  - Then use CMake with command `-DCMAKE_CONAN_ENABLED:BOOL=ON` for enabling conan package manager.
 
-#### Dependencies
-
-**Debian/Ubuntu**
-
-```bash
-apt-get install freeglut3-dev cppcheck
-```
-
-##### Example
-
-- [base template](examples/glut_template/src/main.c)
-
-### SDL2
-
-#### Dependencies
-
-**Debian/Ubuntu**
-
-Install every library for sdl2 for development 
-
-```bash
-apt-get install libsdl2-dev libsdl2-*-dev cppcheck
-```
-
-WIP
-
+For compiling full projects with examples will be needed to install conan package manager which will automatically 
+download/install all dependencies for projects.
