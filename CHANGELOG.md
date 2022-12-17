@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2022-12-17 - @damien.clement
+### Changed
+- Implement conan for build project.
+### Added
+- conanfile for specifying dependencies.
+- Automation script for conan cmake.
+
 ## [0.4.0] - 2022-10-29 - @damien.clement
 ### Changed
 - Shrink all sources to single header `c` file

@@ -15,10 +15,10 @@
 
 #define JADEITITE_VER_MAJOR 0
 #define JADEITITE_VER_MINOR 4
-#define JADEITITE_VER_PATCH 0
+#define JADEITITE_VER_PATCH 1
 
 // Framework version date YYYY-MM-DD
-#define JADEITITE_VER_DATE 20221029
+#define JADEITITE_VER_DATE 20221217
 
 // =====================================================================================================================
 //                                                    Logging
