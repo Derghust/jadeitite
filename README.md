@@ -17,7 +17,7 @@ For compiling jadeitite with examples can be used multiple method:
 
 - Install dependencies on your machine, e.g. SDL2 and then compile it with cmake.
 - Use conan package manager [Conan Docs](https://conan.io)
-  - Firstly run automation [conan.sh](conan.sh) which will setup conan for builds.
+  - Firstly run automation [conan.sh](conan.sh) which will jdt_setup conan for builds.
   - Then use CMake with command `-DCMAKE_CONAN_ENABLED:BOOL=ON` for enabling conan package manager.
 
 For compiling full projects with examples will be needed to install conan package manager which will automatically 
