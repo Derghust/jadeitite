@@ -9,7 +9,6 @@ option(CMAKE_CONAN_ENABLED "Enabled conan integration with cmake." OFF)
 IF(${CMAKE_CONAN_ENABLED})
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(TARGETS)
-
     SET(PACKAGE_SDL CONAN_PKG::sdl)
 ELSE()
     SET(PACKAGE_SDL SDL2)
@@ -45,6 +44,22 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(GCC_OPTIMIZATION "-O3")
     set(GCC_LEVEL_MODE "-DLEVEL_RELEASE")
 endif ()
+
+# Libraries
+
+## Static
+
+add_library(jadeitite_static STATIC src/jadeitite.h)
+target_include_directories(jadeitite_static PUBLIC src)
+target_link_libraries(jadeitite_static PUBLIC ${PACKAGE_SDL})
+set_target_properties(jadeitite_static PROPERTIES LINKER_LANGUAGE C)
+
+## Dynamic
+
+add_library(jadeitite_shared SHARED src/jadeitite.h)
+target_include_directories(jadeitite_shared PUBLIC src)
+target_link_libraries(jadeitite_shared PUBLIC ${PACKAGE_SDL})
+set_target_properties(jadeitite_shared PROPERTIES LINKER_LANGUAGE C)
 
 # Examples
 
