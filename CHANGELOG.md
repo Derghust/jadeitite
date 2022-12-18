@@ -12,6 +12,10 @@ Format:
 
 ## [Unreleased]
 
+## [0.4.3] - 2022-12-18 - @damien.clement
+### Changed
+- Change license from `GNU LESSER GENERAL PUBLIC LICENSE` to `GNU GENERAL PUBLIC LICENSE`
+
 ## [0.4.2] - 2022-12-18 - @damien.clement
 ### Changed
 - Rename functions and values with prefix `jdt` as Jadeitite.
