@@ -12,6 +12,14 @@ Format:
 
 ## [Unreleased]
 
+## [0.4.4] - 2022-12-19 - @damien.clement
+### Added
+- Added drawing for SDL2 filled rectangle.
+### Changed
+- Set VSync for SDL2 renderer.
+### Fixed
+- Removed duplicated callback `onDetach`.
+
 ## [0.4.3] - 2022-12-18 - @damien.clement
 ### Changed
 - Change license from `GNU LESSER GENERAL PUBLIC LICENSE` to `GNU GENERAL PUBLIC LICENSE`

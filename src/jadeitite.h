@@ -348,6 +348,7 @@ u8 jdt_file_write(const char *p_file_path, void *p_data, size_t p_data_size) {
     return JDT_RS_FAILED;
   }
 
+  JDT_LOG_DEBUG("Successfully written data file [path=%s; size=%d]", p_file_path, p_data_size);
   fclose(l_file);
   return JDT_RS_OK;
 }
@@ -671,7 +672,7 @@ u8 jdt_window_init(int p_argc, char *p_argv[], jdt_winProp_t p_winProp) {
     return JDT_RS_FAILED;
   }
 
-  s_jdt_sdl_renderer = SDL_CreateRenderer(s_jdt_sdl_window, -1, SDL_RENDERER_ACCELERATED);
+  s_jdt_sdl_renderer = SDL_CreateRenderer(s_jdt_sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (s_jdt_sdl_renderer == NULL) {
     JDT_LOG_FATAL("Failed to create sdl renderer [error=%s]", SDL_GetError());
     return JDT_RS_FAILED;
@@ -712,13 +713,16 @@ u8 jdt_window_run(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp, int ar
       p_callbacks->onUpdate();
     }
   }
-  p_callbacks->onDetach(argc, argv);
   jdt_window_close();
   return JDT_RS_OK;
 }
 
 static inline void jdt_draw_point(s32 x, s32 y) {
   SDL_RenderDrawPoint(s_jdt_sdl_renderer, x, y);
+}
+
+static inline void jdt_draw_rectangle_filled(s32 x, s32 y, s32 w, s32 h) {
+  SDL_RenderDrawRectF(s_jdt_sdl_renderer, &(SDL_FRect){x, y, w, h});
 }
 
 /**
