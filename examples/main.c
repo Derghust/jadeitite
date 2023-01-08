@@ -1,5 +1,4 @@
-#include "jadeitite.h"
-#include "font8x8.h"
+#include "jadeitite_gl.h"
 
 void onAttach(int p_argc, char **p_argv);
 void onDetach(int p_argc, char **p_argv);
@@ -9,6 +8,7 @@ void onKeyboardUp(unsigned char p_key, int p_x, int p_y);
 void onResize(int p_width, int p_height);
 
 static jdt_winProp_t s_winProp = (jdt_winProp_t) {480, 320, "BASE TEMPLATE", 1};
+jdt_term_asset_t *l_asset;
 
 int jdt_setup(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp, int p_argc, char *p_argv[]) {
   p_callbacks->onAttach = onAttach;
@@ -27,9 +27,8 @@ int jdt_setup(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp, int p_argc
 }
 
 void onAttach(int p_argc, char **p_argv) {
-  s_jdt_clear_color_renderer.x = 32;
-  s_jdt_clear_color_renderer.y = 32;
-  s_jdt_clear_color_renderer.z = 32;
+  render_set_clear_color(0.1f, 0.1f, 0.1f);
+  render_set_projection_2DOrthographic(s_winProp.width, s_winProp.height);
 
   // Example for writing data
   typedef struct {
@@ -44,13 +43,15 @@ void onAttach(int p_argc, char **p_argv) {
   JDT_LOG_INFO("Test Data 1 [%d; %d]", read_data->num_a, read_data->num_b);
   free(read_data);
 
+  l_asset = jdt_asset_read("font8x8.dat");
+
   onUpdate();
 }
 
 void onKeyboardDown(unsigned char p_key, int p_x, int p_y) {
   switch (p_key) {
   case 'q': {
-    s_jdt_running = false;
+    glutLeaveMainLoop();
     break;
   }
   default:JDT_LOG_DEBUG("Missing bind p_key on KeyboardDown for \"%c\"!", p_key);
@@ -88,7 +89,8 @@ void onUpdate(void) {
   jdt_render_begin();
 
   jdt_set_render_color(255, 0, 0);
-  jdt_draw_bitmaps(8, 8, font8x8_basic, 32 + s_text_pos_x, 32, "Hello, World!");
+
+  jdt_draw_bitmaps(8, 8, l_asset->data, 32 + s_text_pos_x, 32, "Hello, World!");
 
   // Render things here
 //  render_color(255, 0, 0);
@@ -101,6 +103,7 @@ void onUpdate(void) {
 
 void onDetach(int p_argc, char **p_argv) {
   JDT_LOG_INFO("Detaching...");
+  free(l_asset);
 }
 
 void onResize(int p_width, int p_height) {

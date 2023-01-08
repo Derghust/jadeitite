@@ -14,11 +14,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 #define JADEITITE_VER_MAJOR 0
-#define JADEITITE_VER_MINOR 4
-#define JADEITITE_VER_PATCH 3
-
-// Framework version date YYYY-MM-DD
-#define JADEITITE_VER_DATE 20221218
+#define JADEITITE_VER_MINOR 5
+#define JADEITITE_VER_PATCH 0
 
 // =====================================================================================================================
 //                                                    Logging
@@ -37,11 +34,11 @@
 #include <string.h>
 
 typedef enum {
-  LOG_LEVEL_INFO,
-  LOG_LEVEL_WARN,
-  LOG_LEVEL_ERROR,
-  LOG_LEVEL_FATAL,
-  LOG_LEVEL_DEBUG
+  JDT_LOG_LEVEL_INFO,
+  JDT_LOG_LEVEL_WARN,
+  JDT_LOG_LEVEL_ERROR,
+  JDT_LOG_LEVEL_FATAL,
+  JDT_LOG_LEVEL_DEBUG
 } jdt_log_level;
 
 // src: https://stackoverflow.com/a/27678121
@@ -64,15 +61,15 @@ static void jdt_log_logSrc(const char *p_file, int p_line) {
 
 static void jdt_log_logLevel(jdt_log_level p_level) {
   switch (p_level) {
-  case LOG_LEVEL_INFO:printf("[INFO]: ");
+  case JDT_LOG_LEVEL_INFO:printf("[INFO]: ");
     break;
-  case LOG_LEVEL_WARN:printf("[WARN]: ");
+  case JDT_LOG_LEVEL_WARN:printf("[WARN]: ");
     break;
-  case LOG_LEVEL_ERROR:printf("[ERROR]: ");
+  case JDT_LOG_LEVEL_ERROR:printf("[ERROR]: ");
     break;
-  case LOG_LEVEL_FATAL:printf("[FATAL]: ");
+  case JDT_LOG_LEVEL_FATAL:printf("[FATAL]: ");
     break;
-  case LOG_LEVEL_DEBUG:printf("[DEBUG]: ");
+  case JDT_LOG_LEVEL_DEBUG:printf("[DEBUG]: ");
     break;
   default:printf("Undefined behaviour!\n");
     return;
@@ -98,11 +95,11 @@ static void jdt_log_log(
 
 #define JDT_GET_SRC_FILENAME (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define JDT_LOG_INFO(...) jdt_log_log(LOG_LEVEL_INFO, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
-#define JDT_LOG_WARN(...) log_log(LOG_LEVEL_WARN, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
-#define JDT_LOG_ERROR(...) jdt_log_log(LOG_LEVEL_ERROR, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
-#define JDT_LOG_FATAL(...) jdt_log_log(LOG_LEVEL_FATAL, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
-#define JDT_LOG_DEBUG(...) jdt_log_log(LOG_LEVEL_DEBUG, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
+#define JDT_LOG_INFO(...) jdt_log_log(JDT_LOG_LEVEL_INFO, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
+#define JDT_LOG_WARN(...) jdt_log_log(JDT_LOG_LEVEL_WARN, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
+#define JDT_LOG_ERROR(...) jdt_log_log(JDT_LOG_LEVEL_ERROR, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
+#define JDT_LOG_FATAL(...) jdt_log_log(JDT_LOG_LEVEL_FATAL, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
+#define JDT_LOG_DEBUG(...) jdt_log_log(JDT_LOG_LEVEL_DEBUG, JDT_GET_SRC_FILENAME , __LINE__, __VA_ARGS__)
 
 // =====================================================================================================================
 //                                                Primitives types
@@ -270,7 +267,7 @@ typedef struct jdt_mem_block_u16_rt {
   struct jdt_mem_block_u16_rt *next;
 } jdt_mem_block_u16_t;
 
-jdt_mem_block_u16_t *jdt_mem_u16_init(u16 p_max_size) {
+static jdt_mem_block_u16_t *jdt_mem_u16_init(u16 p_max_size) {
   jdt_mem_block_u16_t *l_block = malloc(sizeof(jdt_mem_block_u16_t));
   l_block->next = NULL;
   l_block->data = NULL;
@@ -280,7 +277,7 @@ jdt_mem_block_u16_t *jdt_mem_u16_init(u16 p_max_size) {
   return l_block;
 }
 
-void *jdt_mem_u16_alloc(
+static void *jdt_mem_u16_alloc(
   jdt_mem_block_u16_t *p_mem_block,
   u16 p_size
 ) {
@@ -303,7 +300,7 @@ void *jdt_mem_u16_alloc(
   }
 }
 
-void jdt_mem_u16_free(jdt_mem_block_u16_t *p_mem_block) {
+static void jdt_mem_u16_free(jdt_mem_block_u16_t *p_mem_block) {
   if (p_mem_block->next == NULL) {
     if (p_mem_block->data != NULL) {
       free(p_mem_block->data);
@@ -331,7 +328,7 @@ void jdt_mem_u16_free(jdt_mem_block_u16_t *p_mem_block) {
  * @param p_data_size Size of some data, e.g sizeof(my_struct)
  * @return Return JDT_RS_OK if write operation is successful, otherwise return JDT_RS_FAILED
  */
-u8 jdt_file_write(const char *p_file_path, void *p_data, size_t p_data_size) {
+static u8 jdt_file_write(const char *p_file_path, void *p_data, size_t p_data_size) {
   FILE *l_file = fopen(p_file_path, "w");
   if (l_file == NULL) {
     JDT_LOG_ERROR("Failed to open file [file_path=%s]!", p_file_path);
@@ -364,7 +361,7 @@ u8 jdt_file_write(const char *p_file_path, void *p_data, size_t p_data_size) {
  * @param p_data_size Size of some data, e.g sizeof(my_struct)
  * @return Return any data type
  */
-void *jdt_file_read(const char *p_file_path, size_t p_data_size) {
+static void *jdt_file_read(const char *p_file_path, size_t p_data_size) {
   FILE *l_file = fopen(p_file_path, "r");
   if (l_file == NULL) {
     JDT_LOG_ERROR("Failed to open file [file_path=%s]!", p_file_path);
@@ -438,7 +435,7 @@ static const f32 JDT_MATH_2PI = 6.28318f;
  * Squirrel3
  * Link: https://www.youtube.com/watch?v=LWFzPP8ZbdU
  */
-u32 jdt_math_squirrel3(u32 p_index, u32 p_seed) {
+static u32 jdt_math_squirrel3(u32 p_index, u32 p_seed) {
   const u32 l_bit_noise_1 = 0x68E31DA4;
   const u32 l_bit_noise_2 = 0xB5297A4D;
   const u32 l_bit_noise_3 = 0x1B56C4E9;
@@ -455,28 +452,7 @@ u32 jdt_math_squirrel3(u32 p_index, u32 p_seed) {
   return l_mangledBits;
 }
 
-s8 jdt_math_abs_s8(s8 p_value) {
-  if (p_value < 0) {
-    return p_value *= -1;
-  } else {
-    return p_value;
-  }
-}
-s16 jdt_math_abs_s16(s16 p_value) {
-  if (p_value < 0) {
-    return p_value *= -1;
-  } else {
-    return p_value;
-  }
-}
-s32 jdt_math_abs_s32(s32 p_value) {
-  if (p_value < 0) {
-    return p_value *= -1;
-  } else {
-    return p_value;
-  }
-}
-s64 jdt_math_abs_s64(s64 p_value) {
+static s8 jdt_math_abs_s8(s8 p_value) {
   if (p_value < 0) {
     return p_value *= -1;
   } else {
@@ -484,28 +460,31 @@ s64 jdt_math_abs_s64(s64 p_value) {
   }
 }
 
-s8 jdt_math_min_s8(s8 p_value, s8 p_min) {
-  if (p_value < p_min) {
-    return p_min;
+static s16 jdt_math_abs_s16(s16 p_value) {
+  if (p_value < 0) {
+    return p_value *= -1;
   } else {
     return p_value;
   }
 }
-s16 jdt_math_min_s16(s16 p_value, s16 p_min) {
-  if (p_value < p_min) {
-    return p_min;
+
+static s32 jdt_math_abs_s32(s32 p_value) {
+  if (p_value < 0) {
+    return p_value *= -1;
   } else {
     return p_value;
   }
 }
-s32 jdt_math_min_s32(s32 p_value, s32 p_min) {
-  if (p_value < p_min) {
-    return p_min;
+
+static s64 jdt_math_abs_s64(s64 p_value) {
+  if (p_value < 0) {
+    return p_value *= -1;
   } else {
     return p_value;
   }
 }
-s64 jdt_math_min_s64(s64 p_value, s64 p_min) {
+
+static s8 jdt_math_min_s8(s8 p_value, s8 p_min) {
   if (p_value < p_min) {
     return p_min;
   } else {
@@ -513,28 +492,31 @@ s64 jdt_math_min_s64(s64 p_value, s64 p_min) {
   }
 }
 
-s8 jdt_math_max_s8(s8 p_value, s8 p_max) {
-  if (p_value > p_max) {
-    return p_max;
+static s16 jdt_math_min_s16(s16 p_value, s16 p_min) {
+  if (p_value < p_min) {
+    return p_min;
   } else {
     return p_value;
   }
 }
-s16 jdt_math_max_s16(s16 p_value, s16 p_max) {
-  if (p_value > p_max) {
-    return p_max;
+
+static s32 jdt_math_min_s32(s32 p_value, s32 p_min) {
+  if (p_value < p_min) {
+    return p_min;
   } else {
     return p_value;
   }
 }
-s32 jdt_math_max_s32(s32 p_value, s32 p_max) {
-  if (p_value > p_max) {
-    return p_max;
+
+static s64 jdt_math_min_s64(s64 p_value, s64 p_min) {
+  if (p_value < p_min) {
+    return p_min;
   } else {
     return p_value;
   }
 }
-s64 jdt_math_max_s64(s64 p_value, s64 p_max) {
+
+static s8 jdt_math_max_s8(s8 p_value, s8 p_max) {
   if (p_value > p_max) {
     return p_max;
   } else {
@@ -542,7 +524,31 @@ s64 jdt_math_max_s64(s64 p_value, s64 p_max) {
   }
 }
 
-s8 jdt_math_clamp_s8(s8 p_value, s8 p_min, s8 p_max) {
+static s16 jdt_math_max_s16(s16 p_value, s16 p_max) {
+  if (p_value > p_max) {
+    return p_max;
+  } else {
+    return p_value;
+  }
+}
+
+static s32 jdt_math_max_s32(s32 p_value, s32 p_max) {
+  if (p_value > p_max) {
+    return p_max;
+  } else {
+    return p_value;
+  }
+}
+
+static s64 jdt_math_max_s64(s64 p_value, s64 p_max) {
+  if (p_value > p_max) {
+    return p_max;
+  } else {
+    return p_value;
+  }
+}
+
+static s8 jdt_math_clamp_s8(s8 p_value, s8 p_min, s8 p_max) {
   if (p_value < p_min) {
     return p_min;
   }
@@ -551,7 +557,8 @@ s8 jdt_math_clamp_s8(s8 p_value, s8 p_min, s8 p_max) {
   }
   return p_value;
 }
-s16 jdt_math_clamp_s16(s16 p_value, s16 p_min, s16 p_max) {
+
+static s16 jdt_math_clamp_s16(s16 p_value, s16 p_min, s16 p_max) {
   if (p_value < p_min) {
     return p_min;
   }
@@ -560,7 +567,8 @@ s16 jdt_math_clamp_s16(s16 p_value, s16 p_min, s16 p_max) {
   }
   return p_value;
 }
-s32 jdt_math_clamp_s32(s32 p_value, s32 p_min, s32 p_max) {
+
+static s32 jdt_math_clamp_s32(s32 p_value, s32 p_min, s32 p_max) {
   if (p_value < p_min) {
     return p_min;
   }
@@ -569,7 +577,8 @@ s32 jdt_math_clamp_s32(s32 p_value, s32 p_min, s32 p_max) {
   }
   return p_value;
 }
-s64 jdt_math_clamp_s64(s64 p_value, s64 p_min, s64 p_max) {
+
+static s64 jdt_math_clamp_s64(s64 p_value, s64 p_min, s64 p_max) {
   if (p_value < p_min) {
     return p_min;
   }
@@ -580,231 +589,28 @@ s64 jdt_math_clamp_s64(s64 p_value, s64 p_min, s64 p_max) {
 }
 
 // =====================================================================================================================
-//                                          SDL2 with Window and Renderer
+//                                                Asset operator
 // =====================================================================================================================
-// SDL2 with Window and Renderer implementation for applications.
+// Asset creator and reader, e.g create font assets from header file or parser font assets from custom data.
 // ---------------------------------------------------------------------------------------------------------------------
 
-#include <SDL2/SDL.h>
-
-static SDL_Window *s_jdt_sdl_window;
-static SDL_Renderer *s_jdt_sdl_renderer;
-static vec_3_u8 s_jdt_clear_color_renderer;
-static bool s_jdt_running = true;
-
-/**
- * Callbacks structure contain all necessary callback for functional OpenGl.
- * Used for setting up callback for Jadeitite framework
- *
- * @struct onUpdate(void) - Called every frame. Used for drawing and other update event.
- * @struct onKeyboardDown(unsigned char, int, int) - Called on any key down.
- * @struct onKeyboardUp(unsigned char, int, int) - Called on any key up.
- * @struct onAttach(int, char **) - Called after initialized Amber framework and OpenGl.
- * @struct onDetach(int, char **) - Called on close/end.
- */
 typedef struct {
-  void (*onUpdate)(void);
-  void (*onKeyboardDown)(unsigned char, int, int);
-  void (*onKeyboardUp)(unsigned char, int, int);
-  void (*onAttach)(int, char **);
-  void (*onDetach)(int, char **);
-  void (*onResize)(int, int);
-} jdt_callbacks_t;
+  u8 data[256][8];
+} jdt_term_asset_t;
 
-/**
- * Window properties structure contain all necessary variables for initialize window with OpenGl/Glut.
- *
- * @struct width - Window width/X.
- * @struct height - Window height/Y.
- * @struct label - Window name/label.
- * @struct autoRefresh - If is true then enable auto refreshing window
- */
-typedef struct {
-  int width;
-  int height;
-  const char *label;
-  int autoRefresh;
-  unsigned char renderMultiplier;
-} jdt_winProp_t;
-
-static inline void jdt_set_render_color(u8 r, u8 g, u8 b) {
-  SDL_SetRenderDrawColor(s_jdt_sdl_renderer, r, g, b, 255);
+static jdt_term_asset_t *jdt_asset_read(char *p_path) {
+  return jdt_file_read(p_path, sizeof(jdt_term_asset_t));
 }
 
-/**
- * Clear window
- */
-static inline void jdt_render_begin(void) {
-  jdt_set_render_color(s_jdt_clear_color_renderer.x, s_jdt_clear_color_renderer.y, s_jdt_clear_color_renderer.z);
-  SDL_RenderClear(s_jdt_sdl_renderer);
-}
-
-/**
- * Swap render buffer
- */
-static inline void jdt_render_end(void) {
-  SDL_RenderPresent(s_jdt_sdl_renderer);
-}
-
-u8 jdt_window_close() {
-  SDL_DestroyRenderer(s_jdt_sdl_renderer);
-  SDL_DestroyWindow(s_jdt_sdl_window);
-
-  return JDT_RS_OK;
-}
-
-u8 jdt_window_init(int p_argc, char *p_argv[], jdt_winProp_t p_winProp) {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    JDT_LOG_FATAL("Failed to initialize sdl video [error=%s]", SDL_GetError());
-    return JDT_RS_FAILED;
-  }
-
-  s_jdt_sdl_window = SDL_CreateWindow(
-    p_winProp.label,
-    SDL_WINDOWPOS_UNDEFINED,
-    SDL_WINDOWPOS_UNDEFINED,
-    p_winProp.width,
-    p_winProp.height,
-    0
-  );
-  if (s_jdt_sdl_window == NULL) {
-    JDT_LOG_FATAL("Failed to create sdl window [error=%s]", SDL_GetError());
-    return JDT_RS_FAILED;
-  }
-
-  s_jdt_sdl_renderer = SDL_CreateRenderer(s_jdt_sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  if (s_jdt_sdl_renderer == NULL) {
-    JDT_LOG_FATAL("Failed to create sdl renderer [error=%s]", SDL_GetError());
-    return JDT_RS_FAILED;
-  }
-
-  SDL_SetRenderDrawColor(s_jdt_sdl_renderer, 0, 0, 0, 255);
-
-  JDT_LOG_DEBUG("SDL2 Window initialize successfully");
-  return JDT_RS_OK;
-}
-
-void jdt_window_event(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp) {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    switch (event.type) {
-    case SDL_QUIT: {
-      s_jdt_running = false;
-      break;
-    }
-    case SDL_KEYDOWN: {
-      p_callbacks->onKeyboardDown(event.key.keysym.sym, 0, 0);
-      break;
-    }
-    case SDL_KEYUP: {
-      p_callbacks->onKeyboardUp(event.key.keysym.sym, 0, 0);
-      break;
-    }
-
-    default:break;
+static u8 jdt_asset_create(char *p_path, size_t p_size, size_t p_height, const u8 p_bitmap[p_size][p_height]) {
+  jdt_term_asset_t l_asset;
+  for (int x = 0; x < p_size; ++x) {
+    for (int y = 0; y < p_height; ++y) {
+      l_asset.data[x][y] = p_bitmap[x][y];
     }
   }
-}
-
-u8 jdt_window_run(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp, int argc, char *argv[]) {
-  while (s_jdt_running) {
-    jdt_window_event(p_callbacks, p_winProp);
-    if (p_winProp->autoRefresh) {
-      p_callbacks->onUpdate();
-    }
-  }
-  jdt_window_close();
-  return JDT_RS_OK;
-}
-
-static inline void jdt_draw_point(s32 x, s32 y) {
-  SDL_RenderDrawPoint(s_jdt_sdl_renderer, x, y);
-}
-
-static inline void jdt_draw_rectangle_filled(s32 x, s32 y, s32 w, s32 h) {
-  SDL_RenderDrawRectF(s_jdt_sdl_renderer, &(SDL_FRect){x, y, w, h});
-}
-
-/**
- * Draw bitmap (8 * p_sizeY) on window with integer position.
- *
- * @param p_bitmap Bitmap with X size of char (8 bit).
- * @param p_sizeY Count of rows in bitmaps.
- * @param p_posX Position X in window as Integer.
- * @param p_posY Position Y in window as Integer.
- */
-static void jdt_draw_bitmap(
-  u32 p_width,
-  u32 p_height,
-  const u8 p_bitmap[p_width],
-  u32 p_posX,
-  u32 p_posY
-) {
-  for (int y = 0; y < p_height; y++) {
-    for (int x = 0; x < 8; x++) {
-      const int set = p_bitmap[y] & 1 << x;
-      if (set > 0) {
-        jdt_draw_point(p_posX + x, p_posY + y);
-      }
-    }
-  }
-}
-
-static void jdt_draw_bitmaps(u32 p_height, u32 p_width, const u8 p_bitmap[][p_height], u32 p_x, u32 p_y, char *p_text) {
-  size_t l_textLen = strlen(p_text);
-  for (int x = 0; x < l_textLen; x++) {
-    jdt_draw_bitmap(p_width, p_height, p_bitmap[p_text[x]], p_x + (p_width * x), p_y);
-  }
-}
-
-// =====================================================================================================================
-//                                               EntryPoint
-// =====================================================================================================================
-// Main entrypoint for Jadeitite library. Main function is implemented HERE.
-// ---------------------------------------------------------------------------------------------------------------------
-
-/**
- * Function for setting up callbacks and window properties for APP.
- *
- * @param p_callbacks Callbacks function
- * @param p_winProp Windows properties
- * @param p_argc Argument count
- * @param p_argv Argument list
- *
- * @return Return error code, 0 as PASSED, otherwise as FAILED
- *
- * @see t_callbacks
- */
-extern int jdt_setup(
-  jdt_callbacks_t *p_callbacks,
-  jdt_winProp_t *p_winProp,
-  int p_argc,
-  char *p_argv[]
-);
-
-int main(int argc, char *argv[]) {
-  JDT_LOG_INFO(
-    "Jadeitite framework - [%d.%d.%d - %d]",
-    JADEITITE_VER_MAJOR,
-    JADEITITE_VER_MINOR,
-    JADEITITE_VER_PATCH,
-    JADEITITE_VER_DATE
-  );
-
-  jdt_callbacks_t l_callbacks;
-  jdt_winProp_t l_windProp;
-
-  int l_setup = jdt_setup(&l_callbacks, &l_windProp, argc, argv);
-
-  if (l_setup) {
-    jdt_window_init(argc, argv, l_windProp);
-    l_callbacks.onAttach(argc, argv);
-    jdt_window_run(&l_callbacks, &l_windProp, argc, argv);
-    l_callbacks.onDetach(argc, argv);
-  }
-
-  JDT_LOG_INFO("Closing Jadeitite framework");
-  return 0;
+  JDT_LOG_DEBUG("Saving assets [path=%s; size=[%d; %d]]", p_path, p_size, p_height);
+  jdt_file_write(p_path, &l_asset, sizeof(jdt_term_asset_t));
 }
 
 #endif //JADEITITE_FRAMEWORK_H

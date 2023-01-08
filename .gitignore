@@ -78,3 +78,15 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 build
+
+# Makefile
+
+*.o
+*.a
+*.so
+*.dat
+
+# Build commands
+
+compile_commands.json
+.cache
