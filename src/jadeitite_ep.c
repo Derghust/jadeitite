@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 
   int l_setup = jdt_setup(&l_callbacks, &l_windProp, argc, argv);
 
-  if (l_setup) {
+  if (l_setup == JDT_RS_OK) {
     jdt_window_init(argc, argv, l_windProp);
     l_callbacks.onAttach(argc, argv);
     jdt_window_run(&l_callbacks, &l_windProp, argc, argv);

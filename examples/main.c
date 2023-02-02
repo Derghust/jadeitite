@@ -90,7 +90,7 @@ void onUpdate(void) {
 
   jdt_set_render_color(255, 0, 0);
 
-  jdt_draw_bitmaps(8, 8, l_asset->data, 32 + s_text_pos_x, 32, "Hello, World!");
+  jdt_draw_bitmaps(8, 8, l_asset->data, 32 + s_text_pos_x, 32, "Hello, World!", s_winProp.renderMultiplier);
 
   // Render things here
 //  render_color(255, 0, 0);

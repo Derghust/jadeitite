@@ -143,21 +143,15 @@ static void render_set_projection_3DPerspective(
   glLoadIdentity();
 }
 
-static inline void jdt_draw_point(s32 x, s32 y) {
-  glBegin(GL_POINTS);
-  glVertex2i(x, y);
-  glEnd();
-}
-
 /**
  * Draw point/pixel on window with integer position fastly.
  *
  * @param p_posX Position X in window as Integer.
  * @param p_posY Position Y in window as Integer.
  */
-static inline void jdt_draw_point_fast_l1_int(int p_posX, int p_posY) {
+static inline void jdt_draw_point(s32 x, s32 y) {
   glBegin(GL_POINTS);
-  glVertex2i(p_posX, p_posY);
+  glVertex2i(x, y);
   glEnd();
 }
 
@@ -182,7 +176,7 @@ static inline void jdt_draw_point_fast_l2_int(int p_posX, int p_posY) {
  * @param p_endX End position X in window as Integer.
  * @param p_endY End position Y in window as Integer.
  */
-static void jdt_draw_line_int(
+static inline void jdt_draw_line_int(
   int p_beginX,
   int p_beginY,
   int p_endX,
@@ -203,7 +197,7 @@ static void jdt_draw_line_int(
  * @param p_endX End position X in window as Integer.
  * @param p_endY End position Y in window as Integer.
  */
-static void jdt_draw_rectangle_int(
+static inline void jdt_draw_rectangle_int(
   int p_beginX,
   int p_beginY,
   int p_endX,
@@ -225,7 +219,7 @@ static void jdt_draw_rectangle_int(
  * @param p_endX End position X in window as Integer.
  * @param p_endY End position Y in window as Integer.
  */
-static void jdt_draw_rectangle_filled_int(
+static inline void jdt_draw_rectangle_filled_int(
   int p_beginX,
   int p_beginY,
   int p_endX,
@@ -240,6 +234,26 @@ static void jdt_draw_rectangle_filled_int(
 }
 
 /**
+ * Draw filled rectangle with fast L2 on window with integer position.
+ *
+ * @param p_beginX Begin position X in window as Integer.
+ * @param p_beginY Begin position Y in window as Integer.
+ * @param p_endX End position X in window as Integer.
+ * @param p_endY End position Y in window as Integer.
+ */
+static inline void jdt_draw_rectangle_filled_int_fast(
+  int p_beginX,
+  int p_beginY,
+  int p_endX,
+  int p_endY
+) {
+  glVertex2i(p_beginX, p_beginY);
+  glVertex2i(p_endX, p_beginY);
+  glVertex2i(p_endX, p_endY);
+  glVertex2i(p_beginX, p_endY);
+}
+
+/**
  * Draw circle with line loop
  * SOURCE https://stackoverflow.com/a/24843626
  *
@@ -248,7 +262,7 @@ static void jdt_draw_rectangle_filled_int(
  * @param p_radius Circle radius
  * @param p_segments Circle segments
  */
-static void jdt_draw_circle_int(
+static inline void jdt_draw_circle_int(
   s32 p_beginX,
   s32 p_beginY,
   f32 p_radius,
@@ -276,7 +290,7 @@ static void jdt_draw_circle_int(
  * @param p_radius Circle radius
  * @param p_segments Circle segments
  */
-static void jdt_draw_circle_filled_int(
+static inline void jdt_draw_circle_filled_int(
   int p_beginX,
   int p_beginY,
   float p_radius,
@@ -298,7 +312,7 @@ static void jdt_draw_circle_filled_int(
   glEnd(); //END
 }
 
-static void jdt_draw_triangle_int(int p_vertices[3][3]) {
+static inline void jdt_draw_triangle_int(int p_vertices[3][3]) {
   glBegin(GL_TRIANGLES);
   glVertex3i(p_vertices[0][0], p_vertices[0][1], p_vertices[0][2]);
   glVertex3i(p_vertices[1][0], p_vertices[1][1], p_vertices[1][2]);
@@ -319,22 +333,36 @@ static void jdt_draw_bitmap(
   u32 p_height,
   const u8 p_bitmap[p_width],
   u32 p_posX,
-  u32 p_posY
+  u32 p_posY,
+  u32 p_renderMultiplier
 ) {
-  for (int y = 0; y < p_height; y++) {
-    for (int x = 0; x < 8; x++) {
+  glBegin(GL_QUADS);
+  for (u32 y = 0; y < p_height; y++) {
+    for (u32 x = 0; x < 8; x++) {
       const int set = p_bitmap[y] & 1 << x;
       if (set > 0) {
-        jdt_draw_point(p_posX + x, p_posY + y);
+        const u32 l_posX = (p_posX + x) * p_renderMultiplier;
+        const u32 l_posY = (p_posY + y) * p_renderMultiplier;
+
+        const u32 l_posXEnd = (p_posX + x + 1) * p_renderMultiplier;
+        const u32 l_posYEnd = (p_posY + y + 1) * p_renderMultiplier;
+
+        jdt_draw_rectangle_filled_int_fast(l_posX, l_posY, l_posXEnd, l_posYEnd);
       }
     }
   }
+  glEnd();
 }
 
-static void jdt_draw_bitmaps(u32 p_height, u32 p_width, const u8 p_bitmap[][p_height], u32 p_x, u32 p_y, char *p_text) {
+static void jdt_draw_bitmaps(
+  u32 p_height, u32 p_width,
+  const u8 p_bitmap[][p_height],
+  u32 p_x, u32 p_y,
+  char *p_text,
+  u32 p_renderMultiplier) {
   size_t l_textLen = strlen(p_text);
   for (int x = 0; x < l_textLen; x++) {
-    jdt_draw_bitmap(p_width, p_height, p_bitmap[p_text[x]], p_x + (p_width * x), p_y);
+    jdt_draw_bitmap(p_width, p_height, p_bitmap[p_text[x]], p_x + (p_width * x), p_y, p_renderMultiplier);
   }
 }
 

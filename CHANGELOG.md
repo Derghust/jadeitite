@@ -12,13 +12,18 @@ Format:
 
 ## [Unreleased]
 
+## [0.5.1] - 2023-02-02 - @damien.clement
+### Changed
+- Inlining gl drawing functions.
+- Optimize `jdt_draw_bitmap` drawing function.
+
 ## [0.5.0] - 2023-01-08 - @damien.clement
 ### Changed
 - Replace SDL2 for GL and glut again.
 - Moved entrypoint to own `c` file due to issue with some compiler
 complying with multiple main function.
 - Moved GUI function to own `h` file for being able to use jadeitite
-utils without gui
+utils without gui.
 ### Removed
 - CLionstyle.
 
