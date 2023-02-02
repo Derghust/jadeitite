@@ -452,6 +452,12 @@ static u32 jdt_math_squirrel3(u32 p_index, u32 p_seed) {
   return l_mangledBits;
 }
 
+static u32 jdt_math_squirrel3_range(u32 p_index, u32 p_seed, u32 minimum, u32 maximum) {
+  u32 range = maximum - minimum + 1;
+  u32 random = jdt_math_squirrel3(p_index, p_seed) % range;
+  return minimum + random;
+}
+
 static s8 jdt_math_abs_s8(s8 p_value) {
   if (p_value < 0) {
     return p_value *= -1;

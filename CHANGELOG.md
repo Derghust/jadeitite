@@ -12,6 +12,10 @@ Format:
 
 ## [Unreleased]
 
+## [0.5.2] - 2023-02-02 - @damien.clement
+### Added
+- Added range for `jdt_math_squirrel3` random generator.
+
 ## [0.5.1] - 2023-02-02 - @damien.clement
 ### Changed
 - Inlining gl drawing functions.
