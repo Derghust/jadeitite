@@ -2,22 +2,6 @@
 #define JADEITITE_FRAMEWORK_H
 
 // =====================================================================================================================
-//                                                     Macros
-// =====================================================================================================================
-// Specified macros for Jadeitite framework.
-//
-// Contains:
-//  - Framework version
-//    - JADEITITE_VER_XYZ where XYZ are MAJOR, MINOR and PATCH
-//  - Framework version date
-//    - JADEITITE_VER_DATE
-// ---------------------------------------------------------------------------------------------------------------------
-
-#define JADEITITE_VER_MAJOR 0
-#define JADEITITE_VER_MINOR 5
-#define JADEITITE_VER_PATCH 0
-
-// =====================================================================================================================
 //                                                    Logging
 // =====================================================================================================================
 // Lightweight logging framework with source linking and precision time.
@@ -482,6 +466,7 @@ static s32 jdt_math_abs_s32(s32 p_value) {
   }
 }
 
+#ifdef SYS64
 static s64 jdt_math_abs_s64(s64 p_value) {
   if (p_value < 0) {
     return p_value *= -1;
@@ -489,6 +474,7 @@ static s64 jdt_math_abs_s64(s64 p_value) {
     return p_value;
   }
 }
+#endif
 
 static s8 jdt_math_min_s8(s8 p_value, s8 p_min) {
   if (p_value < p_min) {
@@ -514,6 +500,7 @@ static s32 jdt_math_min_s32(s32 p_value, s32 p_min) {
   }
 }
 
+#ifdef SYS64
 static s64 jdt_math_min_s64(s64 p_value, s64 p_min) {
   if (p_value < p_min) {
     return p_min;
@@ -521,6 +508,7 @@ static s64 jdt_math_min_s64(s64 p_value, s64 p_min) {
     return p_value;
   }
 }
+#endif
 
 static s8 jdt_math_max_s8(s8 p_value, s8 p_max) {
   if (p_value > p_max) {
@@ -546,6 +534,7 @@ static s32 jdt_math_max_s32(s32 p_value, s32 p_max) {
   }
 }
 
+#ifdef SYS64
 static s64 jdt_math_max_s64(s64 p_value, s64 p_max) {
   if (p_value > p_max) {
     return p_max;
@@ -553,6 +542,7 @@ static s64 jdt_math_max_s64(s64 p_value, s64 p_max) {
     return p_value;
   }
 }
+#endif
 
 static s8 jdt_math_clamp_s8(s8 p_value, s8 p_min, s8 p_max) {
   if (p_value < p_min) {
@@ -584,6 +574,7 @@ static s32 jdt_math_clamp_s32(s32 p_value, s32 p_min, s32 p_max) {
   return p_value;
 }
 
+#ifdef SYS64
 static s64 jdt_math_clamp_s64(s64 p_value, s64 p_min, s64 p_max) {
   if (p_value < p_min) {
     return p_min;
@@ -593,6 +584,7 @@ static s64 jdt_math_clamp_s64(s64 p_value, s64 p_min, s64 p_max) {
   }
   return p_value;
 }
+#endif
 
 // =====================================================================================================================
 //                                                Asset operator

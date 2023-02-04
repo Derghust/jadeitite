@@ -23,7 +23,7 @@ int jdt_setup(jdt_callbacks_t *p_callbacks, jdt_winProp_t *p_winProp, int p_argc
   p_winProp->label = s_winProp.label;
   p_winProp->autoRefresh = s_winProp.autoRefresh;
 
-  return 1;
+  return JDT_RS_OK;
 }
 
 void onAttach(int p_argc, char **p_argv) {
@@ -58,7 +58,7 @@ void onKeyboardDown(unsigned char p_key, int p_x, int p_y) {
     break;
   }
 
-  onUpdate(); // only if auto refresh is disabled
+//  onUpdate(); // only if auto refresh is disabled
 }
 
 void onKeyboardUp(unsigned char p_key, int p_x, int p_y) {
@@ -89,14 +89,7 @@ void onUpdate(void) {
   jdt_render_begin();
 
   jdt_set_render_color(255, 0, 0);
-
   jdt_draw_bitmaps(8, 8, l_asset->data, 32 + s_text_pos_x, 32, "Hello, World!", s_winProp.renderMultiplier);
-
-  // Render things here
-//  render_color(255, 0, 0);
-//  draw_point_fast_l1_int(5, 5);
-//  draw_circle_filled_int(25, 25, 8, 8);
-//  draw_circle_int(50, 50, 16, 32);
 
   jdt_render_end();
 }
@@ -107,8 +100,5 @@ void onDetach(int p_argc, char **p_argv) {
 }
 
 void onResize(int p_width, int p_height) {
-//  if (p_width > 0 && p_height > 0) {
-//    JDT_LOG_INFO("Resizing display [width=%d;height=%d]", p_width, p_height);
-//    window_resize(p_width, p_height);
-//  }
+
 }

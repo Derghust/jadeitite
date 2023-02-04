@@ -50,9 +50,4 @@ set_target_properties(jadeitite_shared PROPERTIES LINKER_LANGUAGE C)
 
 # Examples
 
-add_executable(jadeitite_gl examples/main.c)
-target_include_directories(jadeitite_gl PRIVATE src)
-target_link_libraries(jadeitite_gl PRIVATE jadeitite_shared)
-
-add_executable(jadeitite_asset examples/prepare.c)
-target_include_directories(jadeitite_asset PRIVATE src vendors)
+add_subdirectory(examples)

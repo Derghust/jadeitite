@@ -30,13 +30,6 @@ extern int jdt_setup(
 );
 
 int main(int argc, char *argv[]) {
-  JDT_LOG_INFO(
-    "Jadeitite framework - [%d.%d.%d]",
-    JADEITITE_VER_MAJOR,
-    JADEITITE_VER_MINOR,
-    JADEITITE_VER_PATCH
-  );
-
   jdt_callbacks_t l_callbacks;
   jdt_winProp_t l_windProp;
 

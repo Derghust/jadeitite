@@ -12,6 +12,14 @@ Format:
 
 ## [Unreleased]
 
+## [0.5.3] - 2023-02-04 - @damien.clement
+### Fixed
+- Setup macro for 64bit operations.
+### Changed
+- Setup cmake subfolder for examples.
+### Removed
+- Removed macro for version inside sources.
+
 ## [0.5.2] - 2023-02-02 - @damien.clement
 ### Added
 - Added range for `jdt_math_squirrel3` random generator.

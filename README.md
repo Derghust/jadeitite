@@ -11,8 +11,8 @@ Compatible with 64-bit and also 32-bit OS
 
 All examples are location in [examples](examples) folder.
 
-- [Basic GL example](examples/main.c)
-- [Asset preparation](examples/prepare.c)
+- [Basic GL example](examples/basic/src/main.c)
+- [Asset preparation](examples/basic/src/prepare.c)
 
 ### GUI
 
